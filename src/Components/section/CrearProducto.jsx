@@ -4,7 +4,7 @@ export const CrearProducto = () => {
   // Los productos van a tener las siguientes props, titulo, descripcion, categoria, además va tener identificador unico
   const handleSubmint = (e)=>{
     e.preventDefault();
-    console.log("sd")
+    console.log("first")
   }
   return (
     <div className="container py-3 my-3">
