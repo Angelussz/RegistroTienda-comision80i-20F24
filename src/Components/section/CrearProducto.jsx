@@ -6,11 +6,21 @@ import clsx from "clsx";
 import * as Yup from "yup";
 // import {object} from "yup";
 import { useFormik } from "formik";
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 export const CrearProducto = () => {
   // Los productos van a tener las siguientes props, titulo, descripcion, categoria, además va tener identificador unico
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
   // const [category, setCategory] = useState("inicial");
+
+  // UTILIZAMOS LA VARIABLE DE ENTORNO
+  const API = import.meta.env.VITE_API;
+
+  // UTILIZAMOS USENAVIGATE DE REACT ROUTE DOM
+  const navigate = useNavigate();
+
+  // Incio config formik
   const ProductoSquema = Yup.object().shape({
     title: Yup.string()
       .min(4, "min 4 caract.")
@@ -25,8 +35,8 @@ export const CrearProducto = () => {
 
   const initialValues = {
     title:"",
-    description:"asdad",
-    category:"Bebida"
+    description:"",
+    category:""
   }
 
   const formik = useFormik({
@@ -36,6 +46,41 @@ export const CrearProducto = () => {
     validateOnChange:true,
     onSubmit: (values)=>{
       console.log("Formik validado -->",values);
+      Swal.fire({
+        title: "Seguro que quieres guardar este producto?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Guardar"
+      }).then(async(result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`${API}/productos`,{
+              method:"POST",
+              headers:{
+                "Content-Type":"application/json"
+              },
+              body:JSON.stringify(values)
+            });
+            // console.log("Response: ",response);
+            // console.log("Response status: ",response.status);
+            if(response.status === 201){
+              formik.resetForm();
+              Swal.fire({
+                title: "Exito",
+                text: "Se creo un nuevo producto",
+                icon: "success"
+              });
+            }
+            
+          } catch (error) {
+            console.log("error -->",error)
+          }
+        }
+      });
+      
     }
   })
   const handleSubmint = (e) => {
@@ -49,6 +94,9 @@ export const CrearProducto = () => {
   };
   return (
     <div className="container py-3 my-3">
+      <Button variant="secondary" onClick={()=>{
+        navigate(-1)
+      }} >Atras</Button>
       <div className="text-center">
         <h2>Crear Producto</h2>
       </div>
@@ -76,7 +124,7 @@ export const CrearProducto = () => {
             }
             )}
           />
-          {console.log(formik.touched.title)}
+          {/* {console.log(formik.touched.title)} */}
           {formik.touched.title && formik.errors.title && (<div className="mt-2 text-danger fw-bolder">
             <span role="alert">{formik.errors.title}</span>
           </div>)}
@@ -95,7 +143,21 @@ export const CrearProducto = () => {
             // onChange={(e) => {
             //   setDescription(e.currentTarget.value);
             // }}
+            name="description"
+            {...formik.getFieldProps('description')}
+            
+            className={clsx('form-control',
+            {
+              'is-invalid': formik.touched.description && formik.errors.description
+            },
+            {
+              'is-valid': formik.touched.description && !formik.errors.description
+            }
+            )}
           />
+          {formik.touched.description && formik.errors.description && (<div className="mt-2 text-danger fw-bolder">
+            <span role="alert">{formik.errors.description}</span>
+          </div>)}
         </Form.Group>
         <Form.Group className="mb-3" controlId="category">
           <Form.Label>Categoria</Form.Label>
@@ -117,12 +179,26 @@ export const CrearProducto = () => {
             //     "is-invalid": !validarCategoria(category),
             //   }
             // )}
+            name="category"
+            {...formik.getFieldProps('category')}
+            
+            className={clsx('form-control',
+            {
+              'is-invalid': formik.touched.category && formik.errors.category
+            },
+            {
+              'is-valid': formik.touched.category && !formik.errors.category
+            }
+            )}
           >
             <option value="">Seleccione una categoría</option>
             <option value="Bebidas">Bebidas</option>
             <option value="Alimentos">Alimentos</option>
             <option value="Limpieza">Limpieza</option>
           </Form.Select>
+          {formik.touched.category && formik.errors.category && (<div className="mt-2 text-danger fw-bolder">
+            <span role="alert">{formik.errors.category}</span>
+          </div>)}
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit
