@@ -6,7 +6,10 @@ export const Navbarr = () => {
   return (
     <Navbar expand="lg" className="bg-body-dark" data-bs-theme="dark" bg='dark'>
       <Container>
-        <Navbar.Brand href="#home">CRUD</Navbar.Brand>
+        
+        <NavLink to={"/"} className={"nav-link"}>
+        <Navbar.Brand>CRUD</Navbar.Brand>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
