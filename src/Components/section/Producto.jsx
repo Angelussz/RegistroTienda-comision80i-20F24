@@ -1,6 +1,8 @@
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Producto = ({producto}) => {
+  const navigate = useNavigate();
   return (
     <>
       <tr>
@@ -9,8 +11,12 @@ export const Producto = ({producto}) => {
         <td>{producto.description}</td>
         <td>{producto.category}</td>
         <td className="d-flex justify-content-between">
-            <Button type="button" variant="warning">Editar</Button>
-            <Button type="button" variant="danger">Eliminar</Button>
+            <Button type="button" variant="warning" onClick={()=>{
+              navigate(`/editar/${producto.id}`)
+            }}>Editar</Button>
+            <Button type="button" variant="danger" onClick={()=>{
+              console.log("desde boton eliminar")
+            }}>Eliminar</Button>
         </td>
       </tr>
     </>

@@ -1,16 +1,16 @@
 {
   "productos": [
     {
-      "id": "4dbf",
-      "title": "Inca cola",
-      "description": "Gasesosa 200ml",
-      "category": "Bebidas"
+      "title": "Inca cola Lite",
+      "description": "Gasesosa 400ml",
+      "category": "Bebidas",
+      "id": "4dbf"
     },
     {
-      "id": "36fc",
       "title": "Coca Cola",
-      "description": "Gaseosa 2L Promoción",
-      "category": "Bebidas"
+      "description": "Mediana descartable",
+      "category": "Bebidas",
+      "id": "36fc"
     },
     {
       "id": "7453",
@@ -23,6 +23,12 @@
       "title": "Galleta Marinel",
       "description": "200gr pack x2",
       "category": "Alimentos"
+    },
+    {
+      "id": "1670",
+      "title": "Koka Cola",
+      "description": "Coca cola 200ml",
+      "category": "Bebidas"
     }
   ]
 }
