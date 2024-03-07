@@ -73,6 +73,7 @@ export const CrearProducto = () => {
                 text: "Se creo un nuevo producto",
                 icon: "success"
               });
+              navigate("/administracion")
             }
             
           } catch (error) {

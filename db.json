@@ -2,13 +2,13 @@
   "productos": [
     {
       "title": "Inca cola Lite",
-      "description": "Gasesosa 400ml",
+      "description": "Gasesosa 415ml",
       "category": "Bebidas",
       "id": "4dbf"
     },
     {
       "title": "Coca Cola",
-      "description": "Mediana descartable",
+      "description": "Mediana vidrio",
       "category": "Bebidas",
       "id": "36fc"
     },
