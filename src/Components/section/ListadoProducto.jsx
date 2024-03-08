@@ -65,6 +65,7 @@ export const ListadoProducto = () => {
                   producto={product}
                   key={product.id}
                   handleShow={handleShow}
+                  getProductos = {getProductos}
                 />
               ))}
             </tbody>

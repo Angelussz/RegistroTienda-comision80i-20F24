@@ -1,24 +1,6 @@
 {
   "productos": [
     {
-      "title": "Inca cola Lite",
-      "description": "Gasesosa 415ml",
-      "category": "Bebidas",
-      "id": "4dbf"
-    },
-    {
-      "title": "Coca Cola",
-      "description": "Mediana vidrio",
-      "category": "Bebidas",
-      "id": "36fc"
-    },
-    {
-      "id": "7453",
-      "title": "Legia Sapolio",
-      "description": "Legia Sapolio 1Lt unid.",
-      "category": "Limpieza"
-    },
-    {
       "id": "b1ca",
       "title": "Galleta Marinel",
       "description": "200gr pack x2",

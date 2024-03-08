@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { BorrarProducto } from "./borrarProducto/BorrarProducto";
 
-export const Producto = ({ producto, handleShow }) => {
+export const Producto = ({ producto, handleShow, getProductos }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -32,15 +33,7 @@ export const Producto = ({ producto, handleShow }) => {
             M. Editar
           </Button>
 
-          <Button
-            type="button"
-            variant="danger"
-            onClick={() => {
-              console.log("desde boton eliminar");
-            }}
-          >
-            Eliminar
-          </Button>
+          <BorrarProducto id={producto.id} getProductos={getProductos} />
         </td>
       </tr>
     </>
