@@ -1,0 +1,16 @@
+{
+  "productos": [
+    {
+      "id": "b1ca",
+      "title": "Galleta Marinel",
+      "description": "200gr pack x2",
+      "category": "Alimentos"
+    },
+    {
+      "id": "1670",
+      "title": "Koka Cola",
+      "description": "Coca cola 200ml",
+      "category": "Bebidas"
+    }
+  ]
+}
