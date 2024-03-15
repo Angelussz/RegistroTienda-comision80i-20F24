@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -6,8 +6,10 @@ import clsx from "clsx";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
+import userContext from "../../context/UserContext";
 export const Login = ({ isOpen, handleClose }) => {
-    const API = import.meta.env.VITE_APIV2
+  const { setCurrentUser, SaveAuth } = useContext(userContext);
+  const API = import.meta.env.VITE_APIV2;
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Formato Invalido")
@@ -26,20 +28,22 @@ export const Login = ({ isOpen, handleClose }) => {
     validationSchema: LoginSchema,
     validateOnBlur: true,
     validateOnChange: true,
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       console.log("VALUES-->", values);
       try {
-        const response = await axios.post(`${API}/users/login`,values);
-        console.log("respuesta login-->",response.data)
-        if(response.status ===200){
-            formik.resetForm();
-            handleClose();
-        }
-        else{
-            alert("Ocurrio un error")
+        const response = await axios.post(`${API}/users/login`, values);
+        // console.log("respuesta login-->", response.data);
+        if (response.status === 200) {
+            SaveAuth(response.data)
+          setCurrentUser(response.data);
+          formik.resetForm();
+          handleClose();
+        } else {
+          alert("Ocurrio un error");
         }
       } catch (error) {
-        console.log(error)
+        alert(`${error.response.data.message}`);
+        // console.log(error.response.data.message);
       }
     },
   });
@@ -85,10 +89,12 @@ export const Login = ({ isOpen, handleClose }) => {
               className={clsx(
                 "form-control",
                 {
-                  "is-invalid": formik.touched.password && formik.errors.password,
+                  "is-invalid":
+                    formik.touched.password && formik.errors.password,
                 },
                 {
-                  "is-valid": formik.touched.password && !formik.errors.password,
+                  "is-valid":
+                    formik.touched.password && !formik.errors.password,
                 }
               )}
             />

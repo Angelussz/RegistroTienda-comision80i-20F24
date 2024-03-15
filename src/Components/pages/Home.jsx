@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-
+import userContext from "../../context/UserContext";
 import axios from "axios";
 import { CardProducto } from "../section/CardProducto";
 export const Home = () => {
+  const {currentUser} = useContext(userContext)
   const [productos, setProductos] = useState([]);
   const API = import.meta.env.VITE_API;
   const getProductos = async () => {
@@ -24,6 +25,7 @@ export const Home = () => {
       setProductos([]);
     };
   }, []);
+  console.log("current user --->",currentUser)
   return (
     <div>
       <div className="text-center">
