@@ -9,7 +9,7 @@ import axios from "axios";
 import userContext from "../../context/UserContext";
 export const Login = ({ isOpen, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(userContext);
-  const API = import.meta.env.VITE_APIV2;
+  const API = import.meta.env.VITE_API;
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Formato Invalido")

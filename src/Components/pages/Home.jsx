@@ -8,12 +8,13 @@ export const Home = () => {
   const {currentUser} = useContext(userContext)
   const [productos, setProductos] = useState([]);
   const API = import.meta.env.VITE_API;
+  console.log(API)
   const getProductos = async () => {
     try {
       const response = await axios.get(`${API}/productos`);
       console.log("RESPONSE AXIOS -->",response);
       // const produc = response.data;
-      setProductos(response.data);
+      // setProductos(response.data);
     } catch (error) {
       // console.log("ERROR -->", error);
     }
