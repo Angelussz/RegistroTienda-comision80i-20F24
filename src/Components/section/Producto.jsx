@@ -7,7 +7,7 @@ export const Producto = ({ producto, handleShow, getProductos }) => {
   return (
     <>
       <tr>
-        <td>{producto.id}</td>
+        <td>{producto._id}</td>
         <td>{producto.title}</td>
         <td>{producto.description}</td>
         <td>{producto.category}</td>
@@ -16,7 +16,7 @@ export const Producto = ({ producto, handleShow, getProductos }) => {
             type="button"
             variant="warning"
             onClick={() => {
-              navigate(`/editar/${producto.id}`);
+              navigate(`/editar/${producto._id}`);
             }}
           >
             Editar
@@ -33,7 +33,7 @@ export const Producto = ({ producto, handleShow, getProductos }) => {
             M. Editar
           </Button>
 
-          <BorrarProducto id={producto.id} getProductos={getProductos} />
+          <BorrarProducto id={producto._id} getProductos={getProductos} />
         </td>
       </tr>
     </>

@@ -19,7 +19,7 @@ export const ListadoProducto = () => {
 
   const getProductos = async () => {
     try {
-      const response = await fetch(`${API}/productos`);
+      const response = await fetch(`${API}/products`);
       // console.log("RESPONSE -->",response);
       const resJson = await response.json();
       // console.log("RESJson -->", resJson);
@@ -63,7 +63,7 @@ export const ListadoProducto = () => {
               {productos.map((product) => (
                 <Producto
                   producto={product}
-                  key={product.id}
+                  key={product._id}
                   handleShow={handleShow}
                   getProductos = {getProductos}
                 />

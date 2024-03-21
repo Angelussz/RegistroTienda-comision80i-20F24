@@ -16,7 +16,7 @@ export const ModalEditar = ({ handleClose, show, producto, getProducto }) => {
       formik.setFieldValue("title",producto.title,true)
       formik.setFieldValue("description",producto.description,true)
       formik.setFieldValue("category",producto.category,true)
-      setId(producto.id)
+      setId(producto._id)
     }
   }, [producto]);
 
