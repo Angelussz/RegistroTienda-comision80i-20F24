@@ -11,12 +11,12 @@ export const Home = () => {
   console.log(API)
   const getProductos = async () => {
     try {
-      const response = await axios.get(`${API}/productos`);
+      const response = await axios.get(`${API}/products`);
       console.log("RESPONSE AXIOS -->",response);
       // const produc = response.data;
-      // setProductos(response.data);
+      setProductos(response.data);
     } catch (error) {
-      // console.log("ERROR -->", error);
+      console.log("ERROR -->", error);
     }
   };
   useEffect(() => {
@@ -27,6 +27,7 @@ export const Home = () => {
     };
   }, []);
   console.log("current user --->",currentUser)
+  console.log("current products-->",productos)
   return (
     <div>
       <div className="text-center">
@@ -35,7 +36,7 @@ export const Home = () => {
       <div className="my-5">
         <Container>
           <Row>
-            {productos.map((producto)=> <CardProducto key={producto.id} producto={producto} />)}
+            {productos.map((producto)=> <CardProducto key={producto._id} producto={producto} />)}
           </Row>
         </Container>
       </div>
