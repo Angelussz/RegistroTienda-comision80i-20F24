@@ -47,7 +47,7 @@ export const Navbarr = () => {
               {/* Colocar aqui (currentUser !== undefined && currentUser.role === "Admin") o sino da problemas y pretier lo modifica  */}
               {(currentUser !== undefined && currentUser.role === "Admin") && (
                 <NavLink to={"/administracion"} className={"nav-link"}>
-                  Admin
+                  Admin(as)
                 </NavLink>
               )}
             </Nav>
