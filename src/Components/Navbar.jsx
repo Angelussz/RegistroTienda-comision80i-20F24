@@ -17,7 +17,7 @@ export const Navbarr = () => {
   };
   const Logout = () => {
     RemoveAuth();
-    setCurrentUser(undefined)
+    setCurrentUser(undefined);
   };
   return (
     <>
@@ -45,23 +45,29 @@ export const Navbarr = () => {
                 Acerca de nosotros
               </NavLink>
               {/* Colocar aqui (currentUser !== undefined && currentUser.role === "Admin") o sino da problemas y pretier lo modifica  */}
-              {(currentUser !== undefined && currentUser.role === "Admin") && (
+              {currentUser !== undefined && currentUser.role === "Admin" && (
                 <NavLink to={"/administracion"} className={"nav-link"}>
                   Admin(as)
                 </NavLink>
               )}
             </Nav>
             <Nav>
-              <Button
-                variant="primary"
-                className="mx-2 my-2 my-ml-0"
-                onClick={handleShow}
-              >
-                Login
-              </Button>
-              <Button variant="danger" className="mx-2 my-2 my-ml-0" onClick={Logout}>
-                Logout
-              </Button>
+              {currentUser === undefined && (
+                <Button
+                  variant="primary"
+                  className="mx-2 my-2 my-ml-0"
+                  onClick={handleShow}
+                >Login</Button>
+              )}
+              {currentUser !== undefined &&
+                <Button
+                  variant="danger"
+                  className="mx-2 my-2 my-ml-0"
+                  onClick={Logout}
+                >
+                  Logout
+                </Button>
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>

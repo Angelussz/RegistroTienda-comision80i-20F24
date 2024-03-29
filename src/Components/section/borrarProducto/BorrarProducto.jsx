@@ -26,7 +26,7 @@ export const BorrarProducto = ({ id, getProductos }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${API}/productos/${id}`);
+          await axios.delete(`${API}/products/${id}`);
           getProductos()
           // console.log("Response: ",response);
           // console.log("Response status: ",response.status);
