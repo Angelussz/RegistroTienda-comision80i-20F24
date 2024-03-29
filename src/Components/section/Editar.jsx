@@ -19,7 +19,7 @@ export const Editar = () => {
 
   const getProducto = async () => {
     try {
-      const { data } = await axios.get(`${API}/productos/${id}`);
+      const { data } = await axios.get(`${API}/products/${id}`);
       // console.log(data)
       setProducto(data)
     } catch (error) {
@@ -72,13 +72,20 @@ export const Editar = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            const response = await fetch(`${API}/productos/${id}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(values),
-            });
+            const updateProduct = {
+              _id:producto._id,
+              title:values.title,
+              category:values.category,
+              description:values.description
+            }
+            // const response = await fetch(`${API}/productos/${id}`, {
+            //   method: "PUT",
+            //   headers: {
+            //     "Content-Type": "application/json",
+            //   },
+            //   body: JSON.stringify(values),
+            // });
+            const response = await axios.put(`${API}/products/update`,updateProduct)
             // console.log("Response: ",response);
             // console.log("Response status: ",response.status);
             if (response.status === 200) {

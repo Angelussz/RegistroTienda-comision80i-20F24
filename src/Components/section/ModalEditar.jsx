@@ -16,10 +16,10 @@ export const ModalEditar = ({ handleClose, show, producto, getProducto }) => {
       formik.setFieldValue("title",producto.title,true)
       formik.setFieldValue("description",producto.description,true)
       formik.setFieldValue("category",producto.category,true)
-      setId(producto.id)
+      setId(producto._id)
     }
   }, [producto]);
-
+  console.log("primera aparicion producto: ",producto);
   // UTILIZAMOS USENAVIGATE DE REACT ROUTE DOM
   // const navigate = useNavigate();
   // UTILIZAMOS LA VARIABLE DE ENTORNO
@@ -62,9 +62,18 @@ export const ModalEditar = ({ handleClose, show, producto, getProducto }) => {
         if (result.isConfirmed) {
           // console.log(producto.id)
           try {
-            const response = await axios.put(`${API}/productos/${id}`,values);
+            // console.log(producto)
+            console.log("segunda aparicion producto: ",producto);
+            const productUpdate = {
+              _id:producto._id,
+              title:values.title,
+              category:values.category,
+              description:values.description
+            }
+            // const response = await axios.put(`${API}/productos/${id}`,values);
+            const response = await axios.put(`${API}/products/update`,productUpdate);
             if (response.status === 200) {
-              formik.resetForm();
+              // formik.resetForm();
               Swal.fire({
                 title: "Exito",
                 text: "Se modifico el producto",
@@ -186,7 +195,7 @@ export const ModalEditar = ({ handleClose, show, producto, getProducto }) => {
               </div>
             )}
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleClose} className="mx-2">
+          <Button variant="primary" type="submit" className="mx-2">
             Guardar
           </Button>
           <Button variant="danger" onClick={()=>{

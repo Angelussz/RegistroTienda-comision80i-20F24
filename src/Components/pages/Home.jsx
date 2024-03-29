@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-
+import userContext from "../../context/UserContext";
 import axios from "axios";
 import { CardProducto } from "../section/CardProducto";
 export const Home = () => {
+  const {currentUser} = useContext(userContext)
   const [productos, setProductos] = useState([]);
   const API = import.meta.env.VITE_API;
+  console.log(API)
   const getProductos = async () => {
     try {
-      const response = await axios.get(`${API}/productos`);
+      const response = await axios.get(`${API}/products`);
       console.log("RESPONSE AXIOS -->",response);
       // const produc = response.data;
       setProductos(response.data);
     } catch (error) {
-      // console.log("ERROR -->", error);
+      console.log("ERROR -->", error);
     }
   };
   useEffect(() => {
@@ -24,6 +26,8 @@ export const Home = () => {
       setProductos([]);
     };
   }, []);
+  console.log("current user --->",currentUser)
+  console.log("current products-->",productos)
   return (
     <div>
       <div className="text-center">
@@ -32,7 +36,7 @@ export const Home = () => {
       <div className="my-5">
         <Container>
           <Row>
-            {productos.map((producto)=> <CardProducto key={producto.id} producto={producto} />)}
+            {productos.map((producto)=> <CardProducto key={producto._id} producto={producto} />)}
           </Row>
         </Container>
       </div>
