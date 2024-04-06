@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -7,8 +7,10 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
 import userContext from "../../context/UserContext";
+import Swal from "sweetalert2";
 export const Login = ({ isOpen, handleClose }) => {
   const { setCurrentUser, SaveAuth } = useContext(userContext);
+  const [isLoading, setIsLoading] = useState(false);
   const API = import.meta.env.VITE_API;
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -29,20 +31,36 @@ export const Login = ({ isOpen, handleClose }) => {
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
-      console.log("VALUES-->", values);
+      // console.log("VALUES-->", values);
+      setIsLoading(true);
+      Swal.fire({
+        title:"Inciando sesión...",
+        allowEscapeKey:false,
+        allowOutsideClick:false,
+        showConfirmButton:false,
+        willOpen:()=>{
+          Swal.showLoading();
+        }
+      })
       try {
         const response = await axios.post(`${API}/users/login`, values);
         // console.log("respuesta login-->", response.data);
         if (response.status === 200) {
-            SaveAuth(response.data)
+          SaveAuth(response.data);
           setCurrentUser(response.data);
           formik.resetForm();
+          setIsLoading(false);
+          Swal.close();
           handleClose();
         } else {
           alert("Ocurrio un error");
+          setIsLoading(false);
+          Swal.close();
         }
       } catch (error) {
         alert(`${error.response.data.message}`);
+        setIsLoading(false);
+        Swal.close();
         // console.log(error.response.data.message);
       }
     },
@@ -105,10 +123,26 @@ export const Login = ({ isOpen, handleClose }) => {
             )}
           </Form.Group>
           <div>
-            <Button type="submit" variant="primary" className="mx-2">
-              Ingresar
+            <Button
+              type="submit"
+              variant="primary"
+              className="mx-2"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="spinner-grow" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                <>Ingresar</>
+              )}
             </Button>
-            <Button variant="secondary" onClick={handleClose} className="mx-2">
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              className="mx-2"
+              disabled={isLoading}
+            >
               Cerrar
             </Button>
           </div>
